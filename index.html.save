@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Suri Daled Flores Escobar</title>
+    <!-- Lucide Icons para iconografía moderna -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-cyan: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-emerald: #34d399;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(56, 189, 248, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top left, #1e1b4b, var(--bg-dark));
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* BARRA LATERAL (SIDEBAR) */
+        .sidebar {
+            width: 320px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .profile-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--accent-cyan);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+            transition: all 0.4s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 35px rgba(192, 132, 252, 0.5);
+            border-color: var(--accent-purple);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            background: var(--accent-emerald);
+            color: #000;
+            font-size: 0.7em;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px var(--accent-emerald);
+        }
+
+        .sidebar h2 {
+            font-size: 1.35em;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .sidebar .role {
+            font-size: 0.88em;
+            color: var(--accent-cyan);
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar .institution {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 4px;
+            margin-bottom: 25px;
+        }
+
+        .contact-info {
+            width: 100%;
+            font-size: 0.85em;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .contact-item:hover {
+            transform: translateX(4px);
+            border-color: var(--accent-cyan);
+        }
+
+        .contact-item i {
+            color: var(--accent-cyan);
+            width: 18px;
+        }
+
+        /* ÁREA DE CONTENIDO PRINCIPAL */
+        .content {
+            margin-left: 320px;
+            flex-grow: 1;
+            padding: 60px 80px;
+            max-width: 1100px;
+        }
+
+        .hero-title {
+            font-size: 2.8em;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--accent-cyan);
+        }
+
+        /* GRID DE HABILIDADES */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            padding: 22px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .skill-header i {
+            color: var(--accent-cyan);
+        }
+
+        .skill-header h3 {
+            font-size: 1.1em;
+        }
+
+        .skill-card p {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* TARJETAS DE PROYECTOS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(192, 132, 252, 0.15);
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-cyan);
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* IDEs Y HERRAMIENTAS CHIPS */
+        .tools-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 50px;
+        }
+
+        .tool-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .tool-chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 30px;
+            }
+            .content {
+                margin-left: 0;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA LATERAL -->
+    <aside class="sidebar">
+        <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <div class="profile-container">
+                <img src="foto.jpeg" alt="Foto de Suri Dalet" class="profile-img">
+                <span class="status-badge">Disponible</span>
+            </div>
+
+            <h2>Suri Dalet Flores Escobar</h2>
+            <div class="role">Ingeniería Informática</div>
+            <div class="institution">5º Semestre | Inst. Tecnológico Superior de Cintalapa</div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i data-lucide="mail"></i>
+                    <span>tuemail@example.com</span>
+                </div>
+                <div class="contact-item">
+                    <i data-lucide="github"></i>
+                    <span>github.com/SuriEscobar</span>
+                </div>
+                <div class="contact-item">
+                    <i data-lucide="terminal"></i>
+                    <span>SSH & Linux Ready</span>
+                </div>
+                <div class="contact-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Chiapas, México</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ÁREA DE CONTENIDO PRINCIPAL -->
+    <main class="content">
+        
+        <!-- SECCIÓN SOBRE MÍ -->
+        <section class="section">
+            <h1 class="hero-title">Soluciones informáticas con arquitectura limpia y diseño cautivador.</h1>
+            <p class="hero-desc">
+                Soy estudiante de Ingeniería Informática apasionada por la ciberseguridad, la administración de servidores Linux y el desarrollo web moderno. Combino el rigor técnico del diseño de bases de datos y la gestión de repositorios con un enfoque estético impecable para crear plataformas web eficientes y visualmente impactantes.
+            </p>
+        </section>
+
+        <!-- HABILIDADES TÉCNICAS -->
+        <section class="section">
+            <h2 class="section-title"><i data-lucide="cpu"></i> Habilidades Especializadas</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i data-lucide="shield-check"></i>
+                        <h3>Ciberseguridad</h3>
+                    </div>
+                    <p>Fundamentos de seguridad informática, gestión de accesos, políticas de seguridad y hardening de entornos locales.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i data-lucide="database"></i>
+                        <h3>Bases de Datos</h3>
+                    </div>
+                    <p>Diseño conceptual, estructuración de consultas SQL, optimización y gestión con PostgreSQL y MySQL.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i data-lucide="git-branch"></i>
+                        <h3>Control de Versiones</h3>
+                    </div>
+                    <p>Dominio avanzado de Git y GitHub: manejo fluido de ramas, merges, resolución de conflictos y despliegues.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i data-lucide="server"></i>
+                        <h3>SSH & Servidores</h3>
+                    </div>
+                    <p>Conexión remota segura vía SSH, administración de sistemas Linux/Windows y despliegues Docker en Swarm.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i data-lucide="layout"></i>
+                        <h3>Diseño & Dev Web</h3>
+                    </div>
+                    <p>Maquetación moderna y responsiva con HTML5, CSS3, JavaScript interactivo y maquetación UI/UX atractiva.</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i data-lucide="file-text"></i>
+                        <h3>Procesamiento CSV/XML</h3>
+                    </div>
+                    <p>Manipulación y análisis de datos estructurados utilizando OpenCSV y procesamiento dinámico de archivos.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- HERRAMIENTAS & IDES -->
+        <section class="section">
+            <h2 class="section-title"><i data-lucide="wrench"></i> Entornos & Herramientas</h2>
+            <div class="tools-flex">
+                <div class="tool-chip"><i data-lucide="code"></i> VS Code</div>
+                <div class="tool-chip"><i data-lucide="box"></i> Eclipse IDE</div>
+                <div class="tool-chip"><i data-lucide="terminal"></i> Bash / Terminal</div>
+                <div class="tool-chip"><i data-lucide="layers"></i> Modelado UML / RUP</div>
+                <div class="tool-chip"><i data-lucide="container"></i> Docker</div>
+            </div>
+        </section>
+
+        <!-- PROYECTOS DESTACADOS -->
+        <section class="section">
+            <h2 class="section-title"><i data-lucide="folder-git-2"></i> Proyectos Destacados</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div>
+                        <h3>Sistema de Gestión CSV/XML</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9em; margin-top: 8px;">
+                            Herramienta desarrollada para procesamiento y lectura dinámica de grandes volúmenes de datos con OpenCSV.
+                        </p>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">OpenCSV</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <h3>Portafolio Web Profesional</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9em; margin-top: 8px;">
+                            Sitio web personal desplegado en contenedores Docker Swarm con Dokploy y Traefik SSL.
+                        </p>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">HTML/CSS/JS</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Dokploy</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT PARA ICONOS Y EFECTOS -->
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        // Efecto hover dinamico para tarjetas
+        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
