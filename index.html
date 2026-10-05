@@ -1,19 +1,66 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi página</title>
+    <title>Mi Portafolio / Currículum</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <h1>Suri Escobar</h1>
+            <ul>
+                <li><a href="#sobre-mi">Sobre mí</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
-        <h1>¡Mi página está funcionando!</h1>
-        <p>Suri </p>
-        <p id="mensaje"></p>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h2>¡Hola! 👋 Soy <span class="highlight">Suri</span></h2>
+                <p>Desarrolladora y entusiasta de la tecnología creando soluciones web.</p>
+                <button id="btnSaludo">Saludarme</button>
+            </div>
+        </section>
+
+        <section id="sobre-mi" class="section">
+            <h3>Sobre mí</h3>
+            <p>Apasionada por la programación, el desarrollo web y el control de versiones con Git y GitHub. Siempre lista para aprender nuevas tecnologías y enfrentar retos creativos.</p>
+        </section>
+
+        <section id="habilidades" class="section">
+            <h3>Habilidades</h3>
+            <ul class="skills-list">
+                <li>HTML5 & CSS3</li>
+                <li>JavaScript</li>
+                <li>Git & GitHub</li>
+                <li>Resolución de problemas</li>
+            </ul>
+        </section>
+
+        <section id="proyectos" class="section">
+            <h3>Proyectos recientes</h3>
+            <div class="project-card">
+                <h4>Mi Primera Web en GitHub</h4>
+                <p>Página web interactiva subida directamente desde la terminal mediante Git.</p>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <h3>Contacto</h3>
+            <p>¿Quieres trabajar conmigo o charlar? Escríbeme a través de GitHub o mis redes.</p>
+            <p id="mensajeInteractivo" class="success-msg"></p>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2026 Suri Escobar. Hecho de volón pinpón 🚀</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
